@@ -1,0 +1,53 @@
+{
+    "info": {
+        "title": "Github File Lister",
+        "description": "Acts like the 'ls' command and can list the contents of directories on Github repos. Can not be used to read file contents directly, as it will return base64.",
+        "version": "v1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://api.github.com"
+        }
+    ],
+    "paths": {
+        "/repos/{owner}/{repo}/contents/{path}": {
+            "get": {
+                "description": "Gets the contents (files) of a specific repo/directory. The 'download_url' property can be used to get the path for the file reader. Make sure to use the 'Github File Reader' action when trying to read contents (if its available).",
+                "operationId": "listGithubFiles",
+                "parameters": [
+                    {
+                        "name": "owner",
+                        "in": "path",
+                        "description": "The owner of the repository (username).",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "repo",
+                        "in": "path",
+                        "description": "The name of the repository itself.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "path",
+                        "in": "path",
+                        "description": "The path to the file or folder (leave this blank to just get the root of the repo). This is case-sensetive.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "deprecated": false
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    }
+}

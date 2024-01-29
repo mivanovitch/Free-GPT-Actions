@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: DevDocs Reader
+  description: >-
+    A GET-request based search operation for DevDocs. This is useful, as DevDocs contains a myriad of various documentations for different things. If using this, ask the user about the parameters beforehand. If doing as an intermediary research step, ask the user to go find the URL.
+  version: v1.0.0
+servers:
+  - url: https://documents.devdocs.io
+    description: DevDocs Documentation Hub
+paths:
+  /{doc}/{topic}.html:
+    get:
+      operationId: readDevDocs
+      summary: Fetch Documentation from DevDocs
+      description: >-
+        Searches for a specific topic and path in DevDocs based on the provided documentation name and topic. This endpoint simulates user navigation on the DevDocs website to retrieve documentation content.
+      parameters:
+        - name: doc
+          in: path
+          description: The name of the documentation, such as "vuex~4" or "css". The exact value should be identified by the user.
+          required: true
+          schema:
+            type: string
+          example: javascript
+        - name: topic
+          in: path
+          description: The path of the section/topic, such as "guide/actions" for Vuex or "display-box" for CSS.
+          required: true
+          schema:
+            type: string
+          example: strings
+      responses:
+        '200':
+          description: Successfully retrieved the documentation content.
+        '400':
+          description: Bad request, often due to missing or invalid parameters.
+        '404':
+          description: The specified documentation or topic was not found.
+        '429':
+          description: Too many requests - rate limiting applied.
+components:
+  schemas: {}
